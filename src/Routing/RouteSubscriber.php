@@ -13,9 +13,6 @@ class RouteSubscriber extends RouteSubscriberBase {
    */
   protected function alterRoutes(RouteCollection $collection)
   {
-    // TODO: Implement alterRoutes() method.
-    // register form
-    //dump($collection);
     if ($route = $collection->get('user.register')) {
       $route->setDefault('_form', '\Drupal\vactory_register\Form\NewUserRegisterForm');
     }
