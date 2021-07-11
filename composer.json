@@ -1,0 +1,10 @@
+{
+    "name": "voidagency/vactory_register",
+    "type": "drupal-custom-module",
+    "authors": [
+        {
+            "name": "ismail"
+        }
+    ],
+    "require": {}
+}
