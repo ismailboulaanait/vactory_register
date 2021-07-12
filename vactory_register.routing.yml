@@ -4,4 +4,4 @@ vactory_register.admin_settings:
     _form: '\Drupal\vactory_register\Form\RegisterConfigForm'
     _title: 'Vactory Register Settings'
   requirements:
-    _permission: 'access content'
+    _permission: 'administer site configuration'
