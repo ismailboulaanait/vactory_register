@@ -28,7 +28,7 @@ function vactory_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterfac
     
     $form['account']['mail']['#default_value'] = 'abc@xyz.com';
     $form['account']['pass']['#required'] = FALSE;
-    $form['account']['pamailss']['#required'] = FALSE;
+    $form['account']['mail']['#required'] = FALSE;
 
     array_unshift($form['actions']['submit']['#submit'], 'vactory_register'); 
   }
