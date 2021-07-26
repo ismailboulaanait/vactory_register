@@ -82,7 +82,7 @@ class RegisterConfigForm extends ConfigFormBase {
   
       $form['items'][$key][$value.'_weight'] = [
         '#type' => 'weight',
-        '#title' => $this->t('Weight for @title', ['@title' => $value['label']]),
+        '#title' => $this->t('Weight for @title', ['@title' => $value]),
         '#title_display' => 'invisible',
         '#default_value' => isset($config[$value]) ?$config[$value] : 0 ,
         '#attributes' => ['class' => [$group_class]],
