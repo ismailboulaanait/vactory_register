@@ -27,10 +27,15 @@ class FormRender extends ControllerBase {
     }
     $config = $this->config('vactory_register.settings')->get('allowed_fields');
     asort($config);
+    // dump($registration_form);die;
     return [
         '#theme'      => 'vactory_register_form',
         '#form_register' => $registration_form,
         '#extension' => array_keys($config),
+        '#attributes' => [
+          'method' => 'POST',
+          'action' => '/user/register'
+        ]
       ];
   }
 

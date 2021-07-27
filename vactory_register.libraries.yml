@@ -1,0 +1,7 @@
+vactory_register.confirmation:
+  version: 1.0
+  js:
+    libraries/js/confirmation.js: {}
+  css:
+    theme:
+      libraries/js/confirmation.css: {}

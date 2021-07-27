@@ -8,6 +8,7 @@
  * This file is no longer required in Drupal 8.
  * @see https://www.drupal.org/node/2217931
  */
+use \Drupal\Core\Url;
 
 function vactory_register_theme($existing, $type, $theme, $path) {
   return [
@@ -15,14 +16,18 @@ function vactory_register_theme($existing, $type, $theme, $path) {
       'template' => 'register',
       'variables' => [
         'form_register' => NULL,
-        'extension' => NULL
+        'extension' => NULL,
+        'attributes' => NULL,
       ],
     ],
   ];
 }
 
 function vactory_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
-  
+  if($form_id==='user_confirmation'){
+    $form['#attached']['library'][] = 'vactory_register/vactory_register.confirmation';
+
+  }
   
   if($form_id === 'user_register_form'){
     
@@ -30,14 +35,29 @@ function vactory_register_form_alter(&$form, \Drupal\Core\Form\FormStateInterfac
     $form['account']['pass']['#required'] = FALSE;
     $form['account']['mail']['#required'] = FALSE;
 
-    array_unshift($form['actions']['submit']['#submit'], 'vactory_register'); 
+    $form['actions']['submit']['#submit'] = array('vactory_register'); 
   }
 }
 
 
 
 function vactory_register(&$form, \Drupal\Core\Form\FormStateInterface $form_state){
-  $form_state->setValue('mail', $form_state->getValue('field_telephone')[0]['value'].'@tpe.com');
+  $url = Url::fromRoute('vactory_register.register_confirmation');
+  $form_state->setRedirectUrl($url);
+
+  $telephone = $form_state->getValue('field_telephone')[0]['value'];
+
+  $telephone_prefix = preg_replace("/^0/", "212", $telephone);
+
+  $otp_service = \Drupal::service('vactory_otp.send_otp');
+  $otp = $otp_service->sendOtpBySms($telephone_prefix, 'Code de vérification TPE');
+
+  $tempstore = \Drupal::service('tempstore.private');
+  $store = $tempstore->get('vactory_register');
+  $store->set('field_telephone', $form_state->getValue('field_telephone')[0]['value']);
+  $store->set('field_last_name', $form_state->getValue('field_last_name')[0]['value']);
+  $store->set('otp', $otp);
+  
 }
 
 

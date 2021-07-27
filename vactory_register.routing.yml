@@ -5,3 +5,11 @@ vactory_register.admin_settings:
     _title: 'Vactory Register Settings'
   requirements:
     _permission: 'administer site configuration'
+
+vactory_register.register_confirmation:
+  path: '/register/confirmation'
+  defaults:
+    _form: '\Drupal\vactory_register\Form\ConfirmationForm'
+    _title: 'Register Confirmation'
+  requirements:
+    _role: 'anonymous'
